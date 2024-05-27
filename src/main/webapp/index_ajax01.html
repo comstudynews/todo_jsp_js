@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>할 일 목록</h1>
+<!-- 
+Ajax를 이용해서 서버와 연동하고 SPA형태로 구현
+http://localhost:9999/app/todo/list.do
+
+웹브라우저 표준 Ajax 객체: XMLHttpRequest
+- 그외 jQuery Ajax 함수, axios 라이브러리, fetch 라이브러리 등으로 구현 가능.
+
+참조: w3schools.com의 Ajax 항목.
+-->
+<p>
+	새 할 일:
+	<input type="text" id="newWork" /> 
+	<button>저장</button> 
+</p>
+<table  width="550" border="1" cellspacing="0">
+	<tr>
+		<th>확인</th>
+		<th>제목</th>
+		<th>수정</th>
+		<th>삭제</th>
+	</tr>
+	<tbody id="todoListBody">
+		<!-- 할 일 목록이 들어 갈 부분 -->
+	</tbody>
+</table>
+<!-- <iframe src="todo/list.do"></iframe> -->
+
+<script>
+var xhr = new XMLHttpRequest();
+console.dir(xhr);
+
+var todoList = [];
+
+// 요청 결과가 클라이언트 페이지(index.html)에 모두 받아지면 실행
+xhr.onload = function() {
+	// xhr.responseText의 데이터는 그냥 JSON 문자열
+	// console.log(xhr.responseText);
+	// JSON 객체로 Object로 변환
+	todoList = JSON.parse(xhr.responseText);
+	var todoListBody = document.getElementById("todoListBody");
+	// ~ 키에 있는 따옴표(`)는 템플릿 문자열입니다.
+	todoListBody.innerHTML = "";
+	for(var i=0; i<todoList.length; i++) {
+		todoListBody.innerHTML += `<tr align="center">
+			<td><input type="checkbox"></td>
+			<td width="400">${todoList[i].title}</td>
+			<td><button>수정</button></td>
+			<td><button>삭제</button></td>
+		</tr>`;
+	}
+}
+
+xhr.open("GET", "todo/list.do", true); // 요청 페이지 URL 지정
+xhr.send(); // 실행
+</script>
+
+</body>
+</html>
