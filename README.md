@@ -8,3 +8,4 @@ TodoList구현 - Serlvet + JSP + Javascript + Bootstrap으로 구현
 4. TodoList 에 bootstrap 적용
 
 5. 수업 일자 : 2024-05-27
+![image](https://github.com/comstudynews/todo_jsp_js/assets/96456853/37f3a3b5-9141-40b5-a1ac-7c883cb5cf0f)
